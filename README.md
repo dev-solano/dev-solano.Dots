@@ -1,6 +1,6 @@
 # Configuración de Desarrollo de **dev-solano**
 
-¡Bienvenido a mi configuración de desarrollo! Aquí encontrarás una guía paso a paso sobre cómo configurar tu entorno de desarrollo para trabajar como un profesional. Si tienes alguna pregunta o sugerencia, ¡no dudes en ponerte en contacto!7
+¡Bienvenido a mi configuración de desarrollo! Aquí encontrarás una guía paso a paso sobre cómo configurar tu entorno de desarrollo para trabajar como un profesional. 
 
 ## Terminal
 Estoy utilizando [WezTerm](https://wezfurlong.org/wezterm/), una terminal moderna y altamente configurable para sistemas operativos Unix. WezTerm ofrece muchas características útiles y una excelente experiencia de usuario.
@@ -59,20 +59,35 @@ sudo apt-get install build-essential procps curl file git
 ```bash
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 ```
-***Para añadir al path**
+**Para añadir al path**
+```bash
+nano ~/.bashrc
+```
+**Agrega esta linea al final del archivo**
 ```bash
 export PATH="/home/linuxbrew/.linuxbrew/bin:$PATH"
-
 ```
 **Reset Shel**
 ```bash
 source ~/.bashrc
 ```
-
-### Configuracion de Homebrew
-
 ### Dependencias
 ```bash
-brew install gcc fd zellij ripgrep node lazygit unzip xclip
+brew install nvim gcc fd zellij ripgrep node lazygit unzip xclip
 ```
+## Fish 
+**Para añadir al path**
+```bash
+nano ~/.config/fish/config.fish
+```
+**Agrega esta linea al final del archivo**
+```bash
+set -gx PATH /home/linuxbrew/.linuxbrew/bin $PATH
+```
+**Reset Shel**
+```bash
+source ~/.config/fish/config.fish
+```
+
+
 
