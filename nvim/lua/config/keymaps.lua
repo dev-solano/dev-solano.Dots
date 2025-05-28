@@ -1,8 +1,14 @@
---local discipline = require("craftzdog.discipline")
-
 --discipline.cowboy()
 local keymap = vim.keymap
 local opts = { noremap = true, silent = true }
+
+-- run http
+keymap.set("n", "<Leader>rc", ":Rest run<CR>", opts)
+
+-- luasnip
+keymap.set("i", "<C-l>", function()
+  require("luasnip").expand_or_jump()
+end, { silent = true })
 
 -- Do things without affecting the registers
 keymap.set("n", "x", '"_x')
@@ -27,9 +33,6 @@ keymap.set("n", "dw", 'vb"_d')
 
 -- Select all
 keymap.set("n", "<C-a>", "gg<S-v>G")
-
--- Save with root permission (not working for now)
---vim.api.nvim_create_user_command('W', 'w !sudo tee > /dev/null %', {})
 
 -- Disable continuations
 keymap.set("n", "<Leader>o", "o<Esc>^Da", opts)
@@ -56,16 +59,19 @@ keymap.set("n", "<C-w><left>", "<C-w><")
 keymap.set("n", "<C-w><right>", "<C-w>>")
 keymap.set("n", "<C-w><up>", "<C-w>+")
 keymap.set("n", "<C-w><down>", "<C-w>-")
-
 -- Diagnostics
 keymap.set("n", "<C-j>", function()
-  vim.diagnostic.goto_next()
+  vim.diagnostic.jump({ count = 1, float = true })
 end, opts)
 
 keymap.set("n", "<leader>r", function()
-  require("craftzdog.hsl").replaceHexWithHSL()
+  require("discipline.hsl").replaceHexWithHSL()
 end)
 
 keymap.set("n", "<leader>i", function()
-  require("craftzdog.lsp").toggleInlayHints()
+  require("discipline.lsp").toggleInlayHints()
 end)
+
+vim.keymap.set("n", "<leader>th", function()
+  require("utils.custom_hover").show_interface_definition_as_hover()
+end, { desc = "Hover interfaz (expandidas)", noremap = true, silent = true })

@@ -1,4 +1,5 @@
 vim.g.mapleader = " "
+vim.g.lazyvim_picker = "fzf"
 
 vim.opt.encoding = "utf-8"
 vim.opt.fileencoding = "utf-8"
@@ -32,6 +33,13 @@ vim.opt.splitright = true -- Put new windows right of current
 vim.opt.splitkeep = "cursor"
 vim.opt.mouse = ""
 
+---  rest nvim
+vim.api.nvim_set_keymap(
+  "n",
+  "<leader>hr",
+  ":lua require('telescope.builtin').find_files({ cwd = '~/http_requests' })<CR>",
+  { noremap = true, silent = true }
+)
 -- Undercurl
 vim.cmd([[let &t_Cs = "\e[4:3m"]])
 vim.cmd([[let &t_Ce = "\e[4:0m"]])
@@ -40,8 +48,13 @@ vim.cmd([[let &t_Ce = "\e[4:0m"]])
 vim.opt.formatoptions:append({ "r" })
 
 vim.cmd([[au BufNewFile,BufRead *.astro setf astro]])
-vim.cmd([[au BufNewFile,BufRead Podfile setf ruby]])
 
+vim.api.nvim_create_autocmd("BufWritePre", {
+  pattern = { "*.js", "*.ts", "*.jsx", "*.tsx" }, -- Aplica a archivos JavaScript y TypeScript
+  callback = function()
+    require("conform").format({ async = false, lsp_fallback = true }) -- Formatea sincrónicamente al guardar
+  end,
+})
 if vim.fn.has("nvim-0.8") == 1 then
-	vim.opt.cmdheight = 0
+  vim.opt.cmdheight = 0
 end
